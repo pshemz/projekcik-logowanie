@@ -13,13 +13,13 @@
             <p><a href="logowanie.php">Zaloguj się</a> | <a href="index.php">Zarejestruj się</a></p>
 
             <form action="logowanie.php" method="POST">
-                Podaj email: <input type="text" name="mail" /><br><br>
-                Podaj hasło: <input type="text" name="haslo" /><br><br>
+                Podaj email: <input type="text" name="mail" required /><br><br>
+                Podaj hasło: <input type="password" name="haslo" required /><br><br>
                 <input type="submit" value="Zaloguj się">
             </form>
 
     <?php
-        $conn = new mysqli("localhost", "root", "", "logowanie");
+        $conn = new mysqli("localhost", "root", "", "logowanie1");
 
         function znajdz_mail($conn, $mail) {
             $tab = array();
@@ -46,13 +46,14 @@
         function spr_haslo($conn, $mail, $haslo) {
             $query = "SELECT haslo FROM uzytkownicy WHERE mail = '$mail'";
             $wynik = mysqli_query($conn, $query);
+            $haslo_h = password_hash($haslo, PASSWORD_DEFAULT);
             
             if (mysqli_num_rows($wynik) == 0) {
                 return false;
             }
 
             while ($w = mysqli_fetch_assoc($wynik)) {
-                if ($w["haslo"] == $haslo) {
+                if (password_verify($haslo, $w["haslo"])) {
                     return true;
                 }
             }
@@ -74,7 +75,7 @@
                 echo "<p style='color: red;'>Błąd! Podałeś niepoprawne hasło...</p>";
             }
             else {
-                echo "<p style='color: green;'>Pomyślnie zalogowano (narazie nie ma nic więcej)!</p>";
+                header('Location: main.php');
             }
         }
 

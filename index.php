@@ -13,16 +13,16 @@
             <p><a href="logowanie.php">Zaloguj się</a> | <a href="index.php">Zarejestruj się</a></p>
 
             <form action="index.php" method="POST">
-                Podaj email: <input type="text" name="mail" /><br><br>
-                Podaj hasło: <input type="text" name="haslo" /><br><br>
-                Powtórz hasło: <input type="text" name="haslo2" /><br><br>
+                Podaj email: <input type="text" name="mail" required /><br><br>
+                Podaj hasło: <input type="password" name="haslo" required /><br><br>
+                Powtórz hasło: <input type="password" name="haslo2" required /><br><br>
                 <input type="submit" value="Zarejestruj się">
             </form>
 
     <?php
         session_start();
 
-        $conn = new mysqli("localhost", "root", "", "logowanie");
+        $conn = new mysqli("localhost", "root", "", "logowanie1");
         $id_sesji = session_id();
 
         function znajdz_mail($conn, $mail) {
@@ -52,6 +52,8 @@
             $haslo = $_POST['haslo'];
             $haslo2 = $_POST['haslo2'];
 
+            $haslo_h = password_hash($haslo, PASSWORD_DEFAULT);
+
             if (!trim($mail) || !trim($haslo) || !trim($haslo2)) {
                 echo "<p style='color: red;'>Błąd! Nie wypełniłeś wszystkich pól...</p>";
             }
@@ -68,7 +70,7 @@
                 echo "<p style='color: red;'>Błąd! Hasła różnią się od siebie...</p>";
             }
             else {
-                mysqli_query($conn, "INSERT INTO uzytkownicy (mail, haslo, id_sesji) VALUES ('$mail', '$haslo', '$id_sesji')");
+                mysqli_query($conn, "INSERT INTO uzytkownicy (mail, haslo, id_sesji) VALUES ('$mail', '$haslo_h', '$id_sesji')");
                 echo "<p style='color: green;'>Pomyślnie zarejestrowano!</p>";
             }
         }
