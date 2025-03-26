@@ -19,7 +19,7 @@
             </form>
 
     <?php
-        $conn = new mysqli("localhost", "root", "", "logowanie1");
+        $conn = new mysqli("localhost", "root", "", "logowanie");
 
         function znajdz_mail($conn, $mail) {
             $tab = array();
@@ -46,19 +46,15 @@
         function spr_haslo($conn, $mail, $haslo) {
             $query = "SELECT haslo FROM uzytkownicy WHERE mail = '$mail'";
             $wynik = mysqli_query($conn, $query);
-            $haslo_h = password_hash($haslo, PASSWORD_DEFAULT);
             
             if (mysqli_num_rows($wynik) == 0) {
                 return false;
-            }
+            }        
 
-            while ($w = mysqli_fetch_assoc($wynik)) {
-                if (password_verify($haslo, $w["haslo"])) {
-                    return true;
-                }
-            }
+            $w = mysqli_fetch_assoc($wynik);
+            $hash = $w['haslo'];
 
-            return false;
+            return password_verify($haslo, $hash);
         }
 
         if (isset($_POST['mail'], $_POST['haslo'])) {

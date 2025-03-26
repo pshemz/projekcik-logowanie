@@ -22,7 +22,7 @@
     <?php
         session_start();
 
-        $conn = new mysqli("localhost", "root", "", "logowanie1");
+        $conn = new mysqli("localhost", "root", "", "logowanie");
         $id_sesji = session_id();
 
         function znajdz_mail($conn, $mail) {
