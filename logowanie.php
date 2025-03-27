@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magicbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
     <body>
@@ -19,6 +20,13 @@
             </form>
 
     <?php
+        session_start();
+
+        if (isset($_SESSION['zalogowany']) && $_SESSION['zalogowany'] === true) {
+            header('Location: main.php');
+            exit;
+        }
+
         $conn = new mysqli("localhost", "root", "", "logowanie");
 
         function znajdz_mail($conn, $mail) {
@@ -71,6 +79,8 @@
                 echo "<p style='color: red;'>Błąd! Podałeś niepoprawne hasło...</p>";
             }
             else {
+                $_SESSION['zalogowany'] = true;
+                $_SESSION['mail'] = $mail;
                 header('Location: main.php');
             }
         }
