@@ -17,9 +17,15 @@
     <link rel="stylesheet" href="style2.css">
 </head>
 <body>
-    <div class="logout-container">
-        <a href="logout.php" class="logout-link">Wyloguj się</a>
-    </div>
+    <a href="main.php">
+        <img src="logo.png" alt="Logo Magicbook" id="logo">
+    </a>
+        
+    <nav id="panel">
+        <a href="zmien_haslo.php" class="zmien_haslo">Zmień hasło</a>
+        <a href="usun_konto.php" class="usun_konto">Usuń konto</a>
+        <a href="logout.php" class="logout">Wyloguj się</a>
+    </nav>
 
     <form action="main.php" method="POST">
         <textarea name="tresc" rows="5" cols="40" placeholder="Co słychać?" required></textarea><br><br>
@@ -27,7 +33,7 @@
     </form>
 
     <?php
-        $conn = new mysqli("localhost", "root", "", "logowanie");
+        $conn = new mysqli("localhost", "root", "", "logowanie1");
 
         if (isset($_POST['tresc'])) {
             $email = $_SESSION['mail'];

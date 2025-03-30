@@ -27,7 +27,7 @@
             exit;
         }
 
-        $conn = new mysqli("localhost", "root", "", "logowanie");
+        $conn = new mysqli("localhost", "root", "", "logowanie1");
 
         function znajdz_mail($conn, $mail) {
             $tab = array();

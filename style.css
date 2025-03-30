@@ -5,7 +5,7 @@ body {
   height: 100vh;
   margin: 0;
   background: linear-gradient(90deg, #74ebd5, #acb6e5);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 #formularz {
@@ -34,7 +34,7 @@ input[type="submit"] {
   font-size: 16px;
   border-radius: 8px;
   transition: background 0.5s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 input[type="submit"]:hover {

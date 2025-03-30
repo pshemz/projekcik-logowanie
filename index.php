@@ -28,7 +28,7 @@
             exit;
         }
 
-        $conn = new mysqli("localhost", "root", "", "logowanie");
+        $conn = new mysqli("localhost", "root", "", "logowanie1");
         $id_sesji = session_id();
 
         function znajdz_mail($conn, $mail) {
